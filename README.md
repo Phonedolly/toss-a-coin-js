@@ -2,4 +2,4 @@
  
 ## Proportion of Successes in Bernoulli Trials
  
-## Go to <https://phonedolly.github.io/toss-a-coin-js/>
+Go to <https://phonedolly.github.io/toss-a-coin-js/>
