@@ -39,6 +39,10 @@
             margin: 1em;
             font-weight: bold;
         }
+
+        input[type=range] {
+            width: 25em;
+        }
     </style>
 </head>
 
@@ -48,8 +52,8 @@
             <canvas id="coinChart"></canvas>
         </div>
         <div id="fieldset">
-            <label for="numberBar">size of n :</label><input id="numberBar" type="range" min="1" max="9999"
-                value="100" step="1" oninput="changeCurrentLabelValue()"><label id="currentN">aa</label>
+            <label for="numberBar">size of n :</label><input id="numberBar" type="range" min="1" max="9999" value="100"
+                step="1" oninput="changeCurrentLabelValue()"><label id="currentN">aa</label>
 
             <button id="regenData">Regenerate</button>
         </div>
