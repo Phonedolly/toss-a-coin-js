@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <title>100th Coin!</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
     <script src="genData.js"></script>
     <style>
         #chart-container {
@@ -13,7 +15,7 @@
             width: 40em;
         }
 
-        #footer{
+        #footer {
             text-align: center;
         }
 
@@ -48,7 +50,7 @@
                 <thead>
                     <tr>
                         <th># of coin tosses</th>
-                        <th>Var(Y)</th>
+                        <th>\[Var(Y)={{X \over n}(1-{X \over n}) \over n}\]</th>
                     </tr>
                 </thead>
                 <tbody>
