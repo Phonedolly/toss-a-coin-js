@@ -17,6 +17,7 @@
 
         #footer {
             text-align: center;
+
         }
 
         div {
@@ -41,7 +42,7 @@
         }
 
         input[type=range] {
-            width: 25em;
+            width: 60%;
         }
     </style>
 </head>
@@ -73,9 +74,11 @@
         <script>
             const numOfData = 100
 
+            /* numOfData대로 화면에 표시 */
             let currentN = document.getElementById('currentN');
             currentN.innerHTML = numOfData;
 
+            /* 슬라이더를 조정했을 때 */
             function changeCurrentLabelValue() {
                 let currentRangeValue = document.getElementById('numberBar').value
                 console.log(currentRangeValue)
@@ -83,17 +86,14 @@
                 document.getElementById('currentN').innerHTML = currentRangeValue;
             }
 
-
-
-
+            /* Regenerate 버튼을 눌렀을 때 */
             document.getElementById('regenData').onclick = function () {
-                /* 그래프 값 새로 생성 */
+                /* 그래프 값 새로 생성 후 값 갱신 */
                 let newNum = document.getElementById('numberBar').value;
                 let newData = genData(newNum);
                 cChart.data.datasets[0].data = newData.randomVarY;
-                cChart.data.labels= newData.graphLabel;
-                cChart.data.datasets[1].data=newData.halfBaseLineData;
-
+                cChart.data.labels = newData.graphLabel;
+                cChart.data.datasets[1].data = newData.halfBaseLineData;
 
                 cChart.update(); // 그래프 새로 그리기
 
@@ -143,6 +143,7 @@
                      * 
                      */
 
+                    // 범례를 표시할 것인가
                     legend: {
                         display: false
                     },
@@ -151,12 +152,7 @@
                         text: 'Proportion of Successes in Bernoulli Trials',
                         fontSize: 24
                     },
-                    elements: {
-                        point: {
-                            // radius: 0
-                            // borderColor:'rgba(255,0,0,0.7)'
-                        }
-                    },
+
                     // responsive: true,
                     // maintainAspectRatio = false,
                     //  aspectRatio = 1,
@@ -189,8 +185,8 @@
             drawVarYTable(graphData.varianceY, numOfData);
         </script>
         <div id="footer">
+            <p>It was created by <a href="https://www.chartjs.org/" target="_blank"><Strong>Chart.js</Strong></a> and <a href="https://www.mathjax.org/"target="_blank"><strong>MathJax</strong></a></p>
             <p>Copyright 2020(c) Phonedolly</p>
-            <p>Kyungpook National University</p>
         </div>
     </div>
 
