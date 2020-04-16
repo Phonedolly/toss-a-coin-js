@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <title>100th Coin!</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="genData.js"></script>
+    <style>
+        #chart-container {
+            /* position: relative; */
+            /* height: auto; */
+            width: 40em;
+        }
+
+        #footer{
+            text-align: center;
+        }
+
+        div {
+            margin: 1em;
+        }
+
+        table {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td,
+        tr {
+            border: 1px solid black;
+            padding: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="chart-container">
+            <canvas id="coinChart"></canvas>
+        </div>
+        <div id="fieldset">
+            <button id="regenData">Regenerate</button>
+        </div>
+        <div id="varianceTable">
+            <table>
+                <thead>
+                    <tr>
+                        <th># of coin tosses</th>
+                        <th>Var(Y)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <script>
+            const numOfData = 100
+
+            document.getElementById('regenData').onclick = function () {
+                /* 그래프 값 새로 생성 */
+                let newData = genData(numOfData);
+                cChart.data.datasets[0].data = newData.randomVarY;
+                cChart.update(); // 그래프 새로 그리기
+
+                drawVarYTable(newData.varianceY, numOfData); // 표 새로 그리기
+            }
+
+
+            /* 새 데이터 생성 */
+            var graphData = genData(numOfData);
+
+            /* 그래프 그리기 */
+            var ctx = document.getElementById('coinChart').getContext('2d');
+            var cChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    title: 'hasd',
+                    labels: graphData.graphLabel,
+                    datasets: [{
+                            label: 'X / n',
+                            data: graphData.randomVarY,
+                            options: {
+
+                            },
+                            borderColor: 'rgba(255,0,0,0.8)',
+                            backgroundColor: 'rgba(0,0,0,0)',
+
+                            // point configs
+                            pointStyle: 'square',
+                            pointBackgroundColor: 'pink',
+
+
+                        },
+                        {
+                            data: graphData.halfBaseLineData,
+                            //label: '1/2 기준선',
+
+                            borderColor: 'rgba(0,255,0,0.2)',
+                            backgroundColor: 'rgba(0,0,0,0)',
+                            pointRadius: 0
+                        }
+                    ],
+
+                },
+                options: {
+                    /**
+                     * resources: https://www.chartjs.org/docs/latest/general/responsive.html
+                     * 
+                     */
+
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Proportion of Successes in Bernoulli Trials',
+                        fontSize: 20
+                    },
+                    elements: {
+                        point: {
+                            // radius: 0
+                            // borderColor:'rgba(255,0,0,0.7)'
+                        }
+                    },
+                    // responsive: true,
+                    // maintainAspectRatio = false,
+                    //  aspectRatio = 1,
+                    scales: {
+                        xAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Number of Coin Tosses',
+                                fontSize: 16
+                            },
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }],
+                        yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Proportion of Heads',
+                                fontSize: 16
+                            },
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+            /* 표 그리기 */
+            drawVarYTable(graphData.varianceY, numOfData);
+        </script>
+        <div id="footer">
+            <p>Copyright 2020(c) Phonedolly</p>
+            <p>Kyungpook National University</p>
+        </div>
+    </div>
+
+</body>
+
+</html>
