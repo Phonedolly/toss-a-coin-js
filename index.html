@@ -34,6 +34,11 @@
             border: 1px solid black;
             padding: 1em;
         }
+
+        label {
+            margin: 1em;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -43,6 +48,9 @@
             <canvas id="coinChart"></canvas>
         </div>
         <div id="fieldset">
+            <label for="numberBar">size of n :</label><input id="numberBar" type="range" min="1" max="9999"
+                value="100" step="1" oninput="changeCurrentLabelValue()"><label id="currentN">aa</label>
+
             <button id="regenData">Regenerate</button>
         </div>
         <div id="varianceTable">
@@ -61,13 +69,31 @@
         <script>
             const numOfData = 100
 
+            let currentN = document.getElementById('currentN');
+            currentN.innerHTML = numOfData;
+
+            function changeCurrentLabelValue() {
+                let currentRangeValue = document.getElementById('numberBar').value
+                console.log(currentRangeValue)
+
+                document.getElementById('currentN').innerHTML = currentRangeValue;
+            }
+
+
+
+
             document.getElementById('regenData').onclick = function () {
                 /* 그래프 값 새로 생성 */
-                let newData = genData(numOfData);
+                let newNum = document.getElementById('numberBar').value;
+                let newData = genData(newNum);
                 cChart.data.datasets[0].data = newData.randomVarY;
+                cChart.data.labels= newData.graphLabel;
+                cChart.data.datasets[1].data=newData.halfBaseLineData;
+
+
                 cChart.update(); // 그래프 새로 그리기
 
-                drawVarYTable(newData.varianceY, numOfData); // 표 새로 그리기
+                drawVarYTable(newData.varianceY, newNum); // 표 새로 그리기
             }
 
 
@@ -82,28 +108,28 @@
                     title: 'hasd',
                     labels: graphData.graphLabel,
                     datasets: [{
-                            label: 'X / n',
-                            data: graphData.randomVarY,
-                            options: {
-
-                            },
-                            borderColor: 'rgba(255,0,0,0.8)',
-                            backgroundColor: 'rgba(0,0,0,0)',
-
-                            // point configs
-                            pointStyle: 'square',
-                            pointBackgroundColor: 'pink',
-
+                        label: 'X / n',
+                        data: graphData.randomVarY,
+                        options: {
 
                         },
-                        {
-                            data: graphData.halfBaseLineData,
-                            //label: '1/2 기준선',
+                        borderColor: 'rgba(255,0,0,0.8)',
+                        backgroundColor: 'rgba(0,0,0,0)',
 
-                            borderColor: 'rgba(0,255,0,0.2)',
-                            backgroundColor: 'rgba(0,0,0,0)',
-                            pointRadius: 0
-                        }
+                        // point configs
+                        pointStyle: 'square',
+                        pointBackgroundColor: 'pink',
+
+
+                    },
+                    {
+                        data: graphData.halfBaseLineData,
+                        //label: '1/2 기준선',
+
+                        borderColor: 'rgba(0,255,0,0.2)',
+                        backgroundColor: 'rgba(0,0,0,0)',
+                        pointRadius: 0
+                    }
                     ],
 
                 },
