@@ -3,7 +3,7 @@ function isSuccess() {
     let rand = Math.floor(Math.random() * 10) + 1;
 
     // 만든 난수가 짝수이면 성공했다고 판단
-    if (rand % 2 == 0)
+    if (rand % 2 === 0)
         return 1;
     else
         return 0;
@@ -35,7 +35,7 @@ function genData(n) {
     /* n번만큼 시행 */
     for (let i = 1; i <= n; i++) {
         /* 시행 하기 */
-        if (isSuccess() == 1) {
+        if (isSuccess() === 1) {
             randomVarX.push(++cntSuccess);
         } else {
             randomVarX.push(cntSuccess);
@@ -92,6 +92,4 @@ function drawVarYTable(varianceY, n) {
         i += sumUnit;
         isFirstCycle = false;
     }
-
-
 }
