@@ -56,10 +56,18 @@ function genData(n) {
 }
 
 function drawVarYTable(varianceY, n) {
-    for (let i = 10; i <= n; i += 10) {
-        let newRow = document.createElement("tr");
-        let newTosses = document.createElement("td"); // # of coin tosses
-        let newVarYValue = document.createElement("td"); // Var(Y)
+    // n이 10보다 크지 않을 때는 Variance Table을 1단위로 보여주고, 나머지 경우엔 10단위로 보여준다
+    let sumUnit = 10;
+    if (n <= 10) {
+        sumUnit = 1;
+    }
+    let i = sumUnit;
+    let isFirstCycle = true;
+
+    while (i <= n) {
+        let newRow = document.createElement("tr"); // new row
+        let newTosses = document.createElement("td"); // new column (# of coin tosses)
+        let newVarYValue = document.createElement("td"); // new column (Var(Y))
 
         /* 새 row 추가 */
         let t = document.getElementById('varianceTable');
@@ -67,18 +75,23 @@ function drawVarYTable(varianceY, n) {
         t = t.lastChild.previousSibling; // <tbody>선택
 
         //t의 모든 하위 자식 지우기
-        while (i == 10 && t.hasChildNodes()) {
+        while (isFirstCycle === true && t.hasChildNodes()) {
             t.removeChild(t.firstChild);
         }
 
         t.appendChild(newRow); // table->tbody 안에 새 row 추가
 
-        /* 새 td들 추가 */
+        /* 새 column들 추가 */
         newRow.appendChild(newTosses);
         newRow.appendChild(newVarYValue);
 
-        newTosses.innerHTML = i; // # of coin tosses
-        newVarYValue.innerHTML = varianceY[i]
+        /* 새로 만들어진 칸에 값 넣기 */
+        newTosses.innerText = i; // # of coin tosses
+        newVarYValue.innerText = varianceY[i]
 
+        i += sumUnit;
+        isFirstCycle = false;
     }
+
+
 }
